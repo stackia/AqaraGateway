@@ -167,7 +167,6 @@ class Gateway:
                 self.hass.data[DOMAIN]["telnet"].append(self.host)
 
         while not self.available:
-            self._mqttc.loop_stop()
             if not self._mqtt_connect():
                 if self.host in self.hass.data[DOMAIN]["mqtt"]:
                     self.hass.data[DOMAIN]["mqtt"].remove(self.host)
@@ -176,7 +175,6 @@ class Gateway:
                     await asyncio.sleep(30)
                     continue
 
-            self._mqttc.loop_start()
             self.available = True
 #            self._mqttc.loop_forever()
 
